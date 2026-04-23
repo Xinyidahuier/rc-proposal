@@ -6,38 +6,37 @@
 <title>RC · Recreation Committee — 部门提案</title>
 
 <!-- ===========================================
-     FONTS — Plus Jakarta Sans (Google Fonts)
-     The chosen style: Pastel Geometry
+     FONTS — Plus Jakarta Sans (Latin/CJK fallback)
+             + Noto Sans Thai (Thai script)
      =========================================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ===========================================
-   THEME TOKENS — edit these to restyle the deck
+   THEME TOKENS
    =========================================== */
 :root {
-    /* Palette */
-    --bg-outer: #c8d9e6;          /* Pastel blue page background */
-    --card-bg: #faf9f7;           /* Cream card container */
-    --ink: #1a1a1a;               /* Primary text / strong strokes */
-    --ink-soft: #555;             /* Secondary text */
-    --ink-mute: #8a8a8a;          /* Captions / meta */
-    --line: rgba(26, 26, 26, 0.1);/* Hairline separators */
+    --bg-outer: #c8d9e6;
+    --card-bg: #faf9f7;
+    --ink: #1a1a1a;
+    --ink-soft: #555;
+    --ink-mute: #8a8a8a;
+    --line: rgba(26, 26, 26, 0.1);
 
-    /* Pills & accents */
     --pill-pink:     #f0b4d4;
     --pill-mint:     #a8d4c4;
     --pill-sage:     #5a7c6a;
     --pill-lavender: #9b8dc4;
     --pill-violet:   #7c6aad;
-    --accent:        #ff8a65;     /* Warm coral — CTAs, eyebrow bar, highlights */
+    --accent:        #ff8a65;
     --accent-soft:   #ffd7a8;
 
-    /* Typography — MUST use clamp() per viewport rules */
     --font-display: 'Plus Jakarta Sans', sans-serif;
     --font-body:    'Plus Jakarta Sans', sans-serif;
+    --font-thai:    'Noto Sans Thai', 'Plus Jakarta Sans', sans-serif;
+
     --title-size:     clamp(2.2rem, 6.5vw, 5rem);
     --h2-size:        clamp(1.6rem, 3.8vw, 2.8rem);
     --h3-size:        clamp(1.1rem, 1.8vw, 1.5rem);
@@ -45,19 +44,17 @@
     --small-size:     clamp(0.72rem, 0.95vw, 0.9rem);
     --eyebrow-size:   clamp(0.7rem, 0.95vw, 0.85rem);
 
-    /* Spacing */
     --slide-padding: clamp(1.2rem, 3vw, 2.5rem);
     --card-padding:  clamp(1.8rem, 4vw, 3.5rem);
     --content-gap:   clamp(0.8rem, 1.6vw, 1.4rem);
     --element-gap:   clamp(0.4rem, 0.8vw, 0.8rem);
 
-    /* Motion */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --duration: 0.7s;
 }
 
 /* ===========================================
-   BASE — reset + font
+   BASE
    =========================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -79,8 +76,7 @@ html {
 }
 
 /* ===========================================
-   VIEWPORT BASE — mandatory fitting rules
-   (inlined from viewport-base.css)
+   VIEWPORT BASE
    =========================================== */
 .slide {
     width: 100vw;
@@ -95,16 +91,15 @@ html {
     justify-content: center;
 }
 
-/* Short viewports */
-@media (max-height: 700px) {
+@media (max-height: 750px) {
     :root {
-        --card-padding:  clamp(1.4rem, 3.2vw, 2.6rem);
+        --card-padding:  clamp(1.3rem, 3vw, 2.4rem);
         --title-size:    clamp(1.8rem, 5.5vw, 3.4rem);
         --h2-size:       clamp(1.3rem, 3.2vw, 2.2rem);
         --content-gap:   clamp(0.6rem, 1.3vw, 1.1rem);
     }
 }
-@media (max-height: 600px) {
+@media (max-height: 650px) {
     :root {
         --card-padding:  clamp(1.1rem, 2.8vw, 2rem);
         --title-size:    clamp(1.5rem, 5vw, 2.6rem);
@@ -126,7 +121,6 @@ html {
     .pills-decor { display: none !important; }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -137,7 +131,7 @@ html {
 }
 
 /* ===========================================
-   CARD — the cream container shared by most slides
+   CARD
    =========================================== */
 .card {
     background: var(--card-bg);
@@ -155,7 +149,6 @@ html {
     padding: var(--card-padding);
 }
 
-/* Decorative soft circle bleed — consistent brand motif */
 .card::before {
     content: "";
     position: absolute;
@@ -170,7 +163,6 @@ html {
     pointer-events: none;
 }
 
-/* Content column */
 .content {
     display: flex;
     flex-direction: column;
@@ -181,30 +173,46 @@ html {
     gap: var(--content-gap);
 }
 .content.center { justify-content: center; }
-.content.gap-md { gap: clamp(1rem, 2vw, 1.8rem); }
+.content.gap-md { gap: clamp(0.9rem, 1.8vw, 1.6rem); }
 
 /* ===========================================
-   TYPOGRAPHY — shared
+   TYPOGRAPHY — CN primary + Thai (.th) secondary
+   Thai sits underneath Chinese at ~40-80% size
    =========================================== */
 .eyebrow {
     display: inline-flex;
+    flex-direction: column;
+    gap: 0.2em;
+    width: fit-content;
+    font-size: var(--eyebrow-size);
+}
+.eyebrow .main {
+    display: inline-flex;
     align-items: center;
     gap: 0.6em;
-    font-size: var(--eyebrow-size);
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    width: fit-content;
 }
-.eyebrow::before {
+.eyebrow .main::before {
     content: "";
     width: 2em;
     height: 2px;
     background: var(--accent);
     border-radius: 2px;
+    flex-shrink: 0;
 }
 .eyebrow .num { color: var(--accent); font-weight: 700; }
+.eyebrow .th {
+    font-family: var(--font-thai);
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--ink-mute);
+    letter-spacing: 0;
+    text-transform: none;
+    padding-left: 2.6em;
+}
 
 h1 {
     font-size: var(--title-size);
@@ -222,6 +230,18 @@ h1 em {
     font-weight: 700;
     color: var(--pill-violet);
 }
+h1 .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.3em;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    margin-top: 0.5em;
+    font-style: normal;
+    text-transform: none;
+}
 
 h2 {
     font-size: var(--h2-size);
@@ -229,11 +249,37 @@ h2 {
     line-height: 1.05;
     letter-spacing: -0.025em;
 }
+h2 em {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--pill-violet);
+}
+h2 .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.44em;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    margin-top: 0.35em;
+    font-style: normal;
+}
+
 h3 {
     font-size: var(--h3-size);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.01em;
+}
+h3 .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.78em;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink-mute);
+    margin-top: 0.2em;
 }
 
 p, li {
@@ -241,17 +287,26 @@ p, li {
     line-height: 1.55;
     color: var(--ink-soft);
 }
+p .th, li .th, .lead .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.82em;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink-mute);
+    margin-top: 0.25em;
+}
 .lead {
     font-size: clamp(1.05rem, 1.5vw, 1.3rem);
     font-weight: 500;
     color: var(--ink-soft);
     line-height: 1.5;
-    max-width: 44ch;
+    max-width: 46ch;
 }
 strong { color: var(--ink); font-weight: 700; }
 
 /* ===========================================
-   PILLS — vertical decorative column (title slides)
+   PILLS DECOR
    =========================================== */
 .pills-decor {
     display: flex;
@@ -273,7 +328,7 @@ strong { color: var(--ink); font-weight: 700; }
 .pill.p5 { height: 38%;  background: var(--pill-violet); }
 
 /* ===========================================
-   STATS row (title + closing)
+   STATS row
    =========================================== */
 .stats {
     display: flex;
@@ -292,7 +347,18 @@ strong { color: var(--ink); font-weight: 700; }
     font-weight: 600;
     color: var(--ink-soft);
     letter-spacing: 0.04em;
-    margin-top: 0.3rem;
+    margin-top: 0.35em;
+    line-height: 1.25;
+}
+.stat .label .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-weight: 400;
+    font-size: 0.88em;
+    color: var(--ink-mute);
+    letter-spacing: 0;
+    margin-top: 0.1em;
+    text-transform: none;
 }
 
 /* ===========================================
@@ -305,13 +371,22 @@ strong { color: var(--ink); font-weight: 700; }
     width: fit-content;
     background: var(--ink);
     color: var(--card-bg);
-    padding: 0.85em 1.5em;
+    padding: 0.85em 1.4em;
     border-radius: 999px;
     font-weight: 600;
     font-size: clamp(0.9rem, 1.15vw, 1.05rem);
     box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     text-decoration: none;
+    line-height: 1.2;
+}
+.cta .cta-text { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0.1em; }
+.cta .cta-text .th {
+    font-family: var(--font-thai);
+    font-weight: 400;
+    font-size: 0.75em;
+    opacity: 0.75;
+    letter-spacing: 0;
 }
 .cta .arrow {
     width: 1.8em;
@@ -323,26 +398,36 @@ strong { color: var(--ink); font-weight: 700; }
     align-items: center;
     justify-content: center;
     font-weight: 800;
+    flex-shrink: 0;
 }
 
 .chip {
     display: inline-flex;
-    align-items: center;
-    gap: 0.4em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1em;
     font-size: var(--small-size);
     font-weight: 600;
-    padding: 0.45em 0.9em;
-    border-radius: 999px;
+    padding: 0.4em 0.9em;
+    border-radius: 1rem;
     background: white;
     border: 1.5px solid var(--ink);
     color: var(--ink);
+    line-height: 1.25;
 }
 .chip.coral    { background: #ffe6da; border-color: var(--accent); }
 .chip.mint     { background: #d4efe4; border-color: var(--pill-sage); }
 .chip.lavender { background: #ece6f5; border-color: var(--pill-violet); }
 .chip.pink     { background: #fbe1ee; border-color: var(--pill-pink); }
+.chip .th {
+    font-family: var(--font-thai);
+    font-size: 0.82em;
+    font-weight: 400;
+    opacity: 0.72;
+    letter-spacing: 0;
+}
 
-.chip-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
 
 /* ===========================================
    GRIDS
@@ -357,22 +442,15 @@ strong { color: var(--ink); font-weight: 700; }
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(0.8rem, 1.6vw, 1.3rem);
 }
-.grid-4 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: clamp(0.8rem, 1.6vw, 1.2rem);
-}
 
-/* Generic tile — used inside grids */
 .tile {
     background: white;
     border-radius: clamp(1rem, 1.6vw, 1.4rem);
-    padding: clamp(1rem, 1.8vw, 1.6rem);
+    padding: clamp(0.9rem, 1.6vw, 1.5rem);
     border: 1.5px solid var(--line);
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.35rem;
     transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
     position: relative;
     overflow: hidden;
@@ -382,14 +460,15 @@ strong { color: var(--ink); font-weight: 700; }
     box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.15);
 }
 .tile .icon {
-    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    font-size: clamp(1.5rem, 2.3vw, 1.9rem);
     line-height: 1;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
 }
 .tile h3 { font-size: clamp(0.95rem, 1.3vw, 1.15rem); }
 .tile p  { font-size: clamp(0.82rem, 1.1vw, 1rem); line-height: 1.45; }
+.tile h3 .th { font-size: 0.72em; margin-top: 0.12em; }
+.tile p .th { font-size: 0.78em; margin-top: 0.18em; }
 
-/* Color accents for specific tiles */
 .tile.t-coral    { background: #fff3ec; }
 .tile.t-mint     { background: #e6f4ec; }
 .tile.t-lavender { background: #efeaf7; }
@@ -397,101 +476,58 @@ strong { color: var(--ink); font-weight: 700; }
 .tile.t-blue     { background: #e4eff7; }
 .tile.t-yellow   { background: #fff4d9; }
 
-/* Ring-numbered step (used on "how to join") */
+/* Step (how to join) */
 .step {
     background: white;
     border-radius: clamp(1rem, 1.6vw, 1.4rem);
-    padding: clamp(1.2rem, 2vw, 1.8rem);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.55rem;
     border: 1.5px solid var(--line);
     position: relative;
 }
 .step .big-num {
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-size: clamp(2.3rem, 3.8vw, 3.2rem);
     font-weight: 800;
     line-height: 1;
     color: var(--accent);
     letter-spacing: -0.05em;
 }
-.step h3 { font-size: clamp(1rem, 1.4vw, 1.25rem); margin-top: 0.2rem; }
+.step h3 { font-size: clamp(1rem, 1.4vw, 1.2rem); margin-top: 0.15em; }
 .step p  { font-size: clamp(0.82rem, 1.1vw, 0.98rem); }
 
 /* ===========================================
-   TIMELINE (quarter row)
-   =========================================== */
-.timeline {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(0.7rem, 1.4vw, 1.2rem);
-    position: relative;
-}
-.timeline::before {
-    content: "";
-    position: absolute;
-    top: clamp(1.6rem, 2.5vw, 2rem);
-    left: 5%;
-    right: 5%;
-    height: 2px;
-    background: linear-gradient(90deg,
-        var(--pill-pink) 0%,
-        var(--pill-mint) 33%,
-        var(--pill-lavender) 66%,
-        var(--accent) 100%);
-    z-index: 0;
-    border-radius: 2px;
-}
-.tl-node {
-    background: white;
-    border-radius: clamp(0.9rem, 1.4vw, 1.2rem);
-    padding: clamp(0.9rem, 1.5vw, 1.3rem);
-    text-align: left;
-    border: 1.5px solid var(--line);
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-.tl-node .dot {
-    width: clamp(0.9rem, 1.3vw, 1.1rem);
-    height: clamp(0.9rem, 1.3vw, 1.1rem);
-    border-radius: 50%;
-    background: var(--accent);
-    border: 3px solid var(--card-bg);
-    box-shadow: 0 0 0 2px var(--accent);
-    margin-bottom: 0.4rem;
-}
-.tl-node:nth-child(1) .dot { background: var(--pill-pink);     box-shadow: 0 0 0 2px var(--pill-pink); }
-.tl-node:nth-child(2) .dot { background: var(--pill-mint);     box-shadow: 0 0 0 2px var(--pill-mint); }
-.tl-node:nth-child(3) .dot { background: var(--pill-lavender); box-shadow: 0 0 0 2px var(--pill-lavender); }
-.tl-node:nth-child(4) .dot { background: var(--accent);        box-shadow: 0 0 0 2px var(--accent); }
-.tl-node .q  { font-size: var(--small-size); font-weight: 700; color: var(--ink-soft); letter-spacing: 0.1em; }
-.tl-node h3 { font-size: clamp(0.95rem, 1.3vw, 1.15rem); }
-.tl-node p  { font-size: clamp(0.78rem, 1.05vw, 0.92rem); }
-
-/* ===========================================
-   QUOTE — used on the manifesto slide
+   QUOTE / MANIFESTO
    =========================================== */
 .big-quote {
-    font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+    font-size: clamp(1.7rem, 4vw, 3.2rem);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.025em;
     color: var(--ink);
-    max-width: 22ch;
+    max-width: 24ch;
 }
 .big-quote .accent-word { color: var(--accent); }
 .big-quote .violet-word { color: var(--pill-violet); font-style: italic; }
+.big-quote .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.38em;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin-top: 0.6em;
+    font-style: normal;
+}
 
 /* ===========================================
-   FAQ — Q&A blocks
+   FAQ
    =========================================== */
 .faq-list {
     display: flex;
     flex-direction: column;
-    gap: clamp(0.6rem, 1.2vw, 1rem);
+    gap: clamp(0.55rem, 1.1vw, 0.9rem);
 }
 .faq-item {
     background: white;
@@ -504,6 +540,7 @@ strong { color: var(--ink); font-weight: 700; }
     font-weight: 700;
     color: var(--ink);
     margin-bottom: 0.35rem;
+    line-height: 1.3;
 }
 .faq-item .q::before {
     content: "Q.";
@@ -511,22 +548,35 @@ strong { color: var(--ink); font-weight: 700; }
     font-weight: 800;
     margin-right: 0.4em;
 }
+.faq-item .q .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.78em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin-top: 0.18em;
+    padding-left: 1.4em;
+}
 .faq-item .a {
     font-size: clamp(0.85rem, 1.15vw, 1rem);
     color: var(--ink-soft);
     line-height: 1.5;
 }
+.faq-item .a .th {
+    display: block;
+    font-family: var(--font-thai);
+    font-size: 0.84em;
+    font-weight: 400;
+    color: var(--ink-mute);
+    margin-top: 0.2em;
+}
 
 /* ===========================================
-   PER-SLIDE BACKGROUND TWEAKS
+   PER-SLIDE TWEAKS
    =========================================== */
 .card.no-circle::before { display: none; }
-.card.align-start { align-items: start; }
 
-/* Slide 11 (manifesto) — no card, direct on pastel bg */
-.slide.bare {
-    padding: var(--slide-padding);
-}
+.slide.bare { padding: var(--slide-padding); }
 .slide.bare .bare-content {
     width: min(94vw, 1100px);
     text-align: center;
@@ -545,11 +595,10 @@ strong { color: var(--ink); font-weight: 700; }
     margin-bottom: -0.4em;
 }
 
-/* Closing slide tweaks */
 .closing-card .content { justify-content: center; align-items: flex-start; text-align: left; }
 
 /* ===========================================
-   PROGRESS BAR (top) + NAV DOTS (right)
+   PROGRESS BAR + NAV DOTS
    =========================================== */
 .progress-bar {
     position: fixed;
@@ -612,7 +661,7 @@ strong { color: var(--ink); font-weight: 700; }
 }
 
 /* ===========================================
-   ENTRANCE ANIMATION — intersection observer adds .visible
+   ENTRANCE ANIMATION
    =========================================== */
 .reveal {
     opacity: 0;
@@ -623,17 +672,13 @@ strong { color: var(--ink); font-weight: 700; }
 }
 .slide.visible .reveal { opacity: 1; transform: translateY(0); }
 
-/* Stagger via explicit classes — more flexible than nth-child when
-   siblings include wrapper divs */
 .delay-1 { transition-delay: 0.10s; }
 .delay-2 { transition-delay: 0.22s; }
 .delay-3 { transition-delay: 0.34s; }
 .delay-4 { transition-delay: 0.46s; }
 .delay-5 { transition-delay: 0.58s; }
 .delay-6 { transition-delay: 0.70s; }
-.delay-7 { transition-delay: 0.82s; }
 
-/* Pills grow animation (vertical) */
 .pill.grow {
     transform: scaleY(0);
     transform-origin: top;
@@ -646,7 +691,6 @@ strong { color: var(--ink); font-weight: 700; }
 .slide.visible .pill.grow.p4 { transition-delay: 0.7s; }
 .slide.visible .pill.grow.p5 { transition-delay: 0.8s; }
 
-/* Gentle float — used for decorative emoji on bare slide */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
@@ -654,10 +698,7 @@ strong { color: var(--ink); font-weight: 700; }
 .float { animation: float 3.5s ease-in-out infinite; }
 
 /* ===========================================
-   INLINE EDITING — opt-in (user said yes)
-   - Hidden hotzone top-left reveals pencil button
-   - E key toggles edit mode
-   - Ctrl+S exports file (strips edit state first)
+   INLINE EDITING
    =========================================== */
 .edit-hotzone {
     position: fixed;
@@ -729,16 +770,12 @@ body.edit-active [contenteditable="true"]:focus {
 </head>
 <body>
 
-<!-- ===========================================
-     INLINE EDIT UI
-     =========================================== -->
+<!-- INLINE EDIT UI -->
 <div class="edit-hotzone" aria-hidden="true"></div>
 <button class="edit-toggle" id="editToggle" title="进入编辑 (E)" aria-label="Toggle edit mode">✏️</button>
 <div class="edit-banner" id="editBanner">✎ 编辑模式 · 点击任意文字修改 · Ctrl+S 保存文件</div>
 
-<!-- ===========================================
-     PROGRESS BAR + NAV DOTS
-     =========================================== -->
+<!-- PROGRESS + NAV -->
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
 <span class="keyboard-hint">← → · SCROLL · TAP</span>
@@ -746,23 +783,44 @@ body.edit-active [contenteditable="true"]:focus {
 <!-- ===========================================
      SLIDE 1 — COVER
      =========================================== -->
-<section class="slide" data-title="封面">
+<section class="slide" data-title="Cover">
     <div class="card">
         <div class="content">
-            <span class="eyebrow reveal delay-1">部门提案 · RC 成立计划</span>
+            <span class="eyebrow reveal delay-1">
+                <span class="main">部门提案 · RC 成立计划</span>
+                <span class="th">ข้อเสนอจากทีม · แผนจัดตั้ง RC</span>
+            </span>
             <div>
-                <h1 class="reveal delay-2">让工作<br>多一点<span class="pop">快乐</span>。</h1>
+                <h1 class="reveal delay-2">让工作<br>多一点<span class="pop">快乐</span>。
+                    <span class="th">ทำให้การทำงาน สนุกขึ้นอีกนิด</span>
+                </h1>
                 <p class="lead reveal delay-3" style="margin-top: clamp(0.8rem, 1.5vw, 1.2rem);">
                     我们想在部门里成立一个 <strong>Recreation Committee</strong>——<br>
                     为大家策划一整年的小美好，让伙伴之间更近、一起成长。
+                    <span class="th">เราอยากตั้ง Recreation Committee ในทีม — จัดกิจกรรมดีๆ ตลอดทั้งปี เพื่อให้เพื่อนร่วมงานสนิทกันมากขึ้น และเติบโตไปด้วยกัน</span>
                 </p>
             </div>
             <div class="stats reveal delay-4">
-                <div class="stat"><div class="num">1–2</div><div class="label">每部门代表</div></div>
-                <div class="stat"><div class="num">1 年</div><div class="label">一届任期</div></div>
-                <div class="stat"><div class="num">100%</div><div class="label">自愿报名</div></div>
+                <div class="stat">
+                    <div class="num">1–2</div>
+                    <div class="label">每部门代表<span class="th">ตัวแทน / ทีม</span></div>
+                </div>
+                <div class="stat">
+                    <div class="num">1 年</div>
+                    <div class="label">一届任期<span class="th">ต่อวาระ</span></div>
+                </div>
+                <div class="stat">
+                    <div class="num">2 种</div>
+                    <div class="label">自愿 + 推荐<span class="th">สมัครใจ + แนะนำ</span></div>
+                </div>
             </div>
-            <a class="cta reveal delay-5" href="#slide-13">报名参加首届 RC <span class="arrow">→</span></a>
+            <a class="cta reveal delay-5" href="#slide-join">
+                <span class="cta-text">
+                    报名参加首届 RC
+                    <span class="th">สมัครเข้าร่วม RC รุ่นแรก</span>
+                </span>
+                <span class="arrow">→</span>
+            </a>
         </div>
         <div class="pills-decor">
             <div class="pill p1 grow"></div>
@@ -772,7 +830,7 @@ body.edit-active [contenteditable="true"]:focus {
             <div class="pill p5 grow"></div>
         </div>
     </div>
-    <span class="slide-number">01 / 13</span>
+    <span class="slide-number">01 / 11</span>
 </section>
 
 <!-- ===========================================
@@ -781,15 +839,21 @@ body.edit-active [contenteditable="true"]:focus {
 <section class="slide" data-title="Why now">
     <div class="card no-circle">
         <div class="content center">
-            <span class="eyebrow reveal delay-1"><span class="num">01</span> · WHY NOW</span>
-            <h2 class="reveal delay-2">好的部门<br>不只是<em>一起干活。</em></h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">01</span> · WHY NOW</span>
+            </span>
+            <h2 class="reveal delay-2">好的部门<br>不只是<em>一起干活。</em>
+                <span class="th">ทีมที่ดี ไม่ได้แค่ทำงานด้วยกัน</span>
+            </h2>
             <p class="lead reveal delay-3">
                 我们每天花 8 小时以上和同事相处——比大多数朋友、家人都多。
                 但抛开工作本身，我们对彼此了解多少？
+                <span class="th">เราใช้เวลากับเพื่อนร่วมงานวันละ 8+ ชั่วโมง — มากกว่าเพื่อนและครอบครัวส่วนใหญ่ แต่ถ้าตัดเรื่องงานออก เรารู้จักกันมากแค่ไหน?</span>
             </p>
             <p class="lead reveal delay-4">
                 <strong>RC 想做的事很简单：</strong>
                 让这段「大部分时间」，多一些笑声、更多的链接、和值得回忆的瞬间。
+                <span class="th"><strong>สิ่งที่ RC อยากทำนั้นเรียบง่าย:</strong> ทำให้ช่วงเวลาส่วนใหญ่นี้ มีเสียงหัวเราะ ความสัมพันธ์ และโมเมนต์ที่น่าจดจำมากขึ้น</span>
             </p>
         </div>
         <div class="pills-decor">
@@ -798,65 +862,35 @@ body.edit-active [contenteditable="true"]:focus {
             <div class="pill p1 grow"></div>
         </div>
     </div>
-    <span class="slide-number">02 / 13</span>
+    <span class="slide-number">02 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 3 — OBSERVATION (4 cards)
-     =========================================== -->
-<section class="slide" data-title="Observation">
-    <div class="card">
-        <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">02</span> · 我们观察到</span>
-            <h2 class="reveal delay-2">这些场景 · 是不是很熟悉？</h2>
-            <div class="grid-4" style="flex: 1;">
-                <div class="tile t-pink reveal delay-3">
-                    <div class="icon">🫥</div>
-                    <h3>「这位是？」</h3>
-                    <p>跨部门同事一年也见不上几面，名字对不上脸。</p>
-                </div>
-                <div class="tile t-mint reveal delay-4">
-                    <div class="icon">🎂</div>
-                    <h3>生日悄悄过</h3>
-                    <p>朋友圈刷到才发现，连一声「生日快乐」都没来得及说。</p>
-                </div>
-                <div class="tile t-lavender reveal delay-5">
-                    <div class="icon">🪑</div>
-                    <h3>新同事像客人</h3>
-                    <p>来了一两周，除了工位邻居没说过几句话。</p>
-                </div>
-                <div class="tile t-coral reveal delay-6">
-                    <div class="icon">😮‍💨</div>
-                    <h3>累了没人 call</h3>
-                    <p>想出去透透气，却不好意思开口约人。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <span class="slide-number">03 / 13</span>
-</section>
-
-<!-- ===========================================
-     SLIDE 4 — WHAT IS RC
+     SLIDE 3 — WHAT IS RC
      =========================================== -->
 <section class="slide" data-title="What is RC">
     <div class="card">
         <div class="content center">
-            <span class="eyebrow reveal delay-1"><span class="num">03</span> · WHAT</span>
-            <h2 class="reveal delay-2">什么是 <em>Recreation Committee</em>？</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">02</span> · WHAT</span>
+            </span>
+            <h2 class="reveal delay-2">什么是 <em>Recreation Committee</em>？
+                <span class="th">Recreation Committee คืออะไร?</span>
+            </h2>
             <p class="lead reveal delay-3">
-                <strong>RC 是一个由部门内同事组成的轻量化兴趣小组。</strong>
+                <strong>RC 是一群自愿为部门策划活动的同事。</strong>
+                <span class="th"><strong>RC คือกลุ่มเพื่อนร่วมทีมที่อาสามาวางแผนกิจกรรมให้กับทีม</strong></span>
             </p>
             <p class="lead reveal delay-4">
                 不是 HR，不是工会，也不是额外的行政负担。
-                它只做一件事：<br>
-                <strong>把「想做的活动」变成「真的发生的活动」。</strong>
+                它只做一件事：<strong>把「想做的活动」变成「真的发生的活动」。</strong>
+                <span class="th">ไม่ใช่ HR ไม่ใช่สหภาพ และไม่เพิ่มภาระงาน <strong>ทำสิ่งเดียว: เปลี่ยน "กิจกรรมที่อยากจัด" ให้เป็น "กิจกรรมที่เกิดขึ้นจริง"</strong></span>
             </p>
             <div class="chip-row reveal delay-5">
-                <span class="chip coral">🎉 策划活动</span>
-                <span class="chip mint">🤝 连接伙伴</span>
-                <span class="chip lavender">📣 收集心声</span>
-                <span class="chip pink">✨ 创造记忆</span>
+                <span class="chip coral">🎉 策划活动<span class="th">จัดกิจกรรม</span></span>
+                <span class="chip mint">🤝 连接伙伴<span class="th">เชื่อมเพื่อนร่วมทีม</span></span>
+                <span class="chip lavender">📣 收集心声<span class="th">รับฟังเสียงทุกคน</span></span>
+                <span class="chip pink">✨ 创造记忆<span class="th">สร้างความทรงจำ</span></span>
             </div>
         </div>
         <div class="pills-decor">
@@ -865,312 +899,363 @@ body.edit-active [contenteditable="true"]:focus {
             <div class="pill p5 grow"></div>
         </div>
     </div>
-    <span class="slide-number">04 / 13</span>
+    <span class="slide-number">03 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 5 — 3 KEY VALUES
+     SLIDE 4 — 3 VALUES
      =========================================== -->
 <section class="slide" data-title="Values">
     <div class="card">
         <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">04</span> · 三个关键词</span>
-            <h2 class="reveal delay-2">RC 遵守的<br>三条简单原则。</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">03</span> · 三个关键词</span>
+                <span class="th">3 หลักการ</span>
+            </span>
+            <h2 class="reveal delay-2">RC 遵守的<br>三条简单原则。
+                <span class="th">3 หลักการง่ายๆ ที่ RC ยึดถือ</span>
+            </h2>
             <div class="grid-3" style="flex: 1;">
                 <div class="tile t-coral reveal delay-3">
                     <div class="icon">🙋</div>
-                    <h3>自愿</h3>
-                    <p>只邀请真的愿意花时间的人。不摊派、不挂名、不算 KPI。</p>
+                    <h3>自愿为先<span class="th">สมัครใจเป็นหลัก</span></h3>
+                    <p>以自愿为主；名额不足时，部门 lead 可推荐合适的人选补位。
+                        <span class="th">สมัครใจเป็นหลัก หากไม่ครบ lead ของทีมสามารถแนะนำคนที่เหมาะสมมาเสริมได้</span>
+                    </p>
                 </div>
                 <div class="tile t-lavender reveal delay-4">
                     <div class="icon">🔄</div>
-                    <h3>轮值</h3>
-                    <p>每年一届，让更多人有机会参与和主导。不让同一批人累到。</p>
+                    <h3>一年一届<span class="th">ปีละ 1 วาระ</span></h3>
+                    <p>每年重新组阁，让更多人有机会参与和主导。不让同一批人累到。
+                        <span class="th">ตั้งคณะใหม่ทุกปี ให้คนใหม่ๆ ได้มีส่วนร่วมและเป็นผู้นำ เพื่อไม่ให้คนเดิมๆ เหนื่อยเกินไป</span>
+                    </p>
                 </div>
                 <div class="tile t-mint reveal delay-5">
                     <div class="icon">🌱</div>
-                    <h3>成长</h3>
-                    <p>策划 · 协作 · 沟通，每一场活动都是成长的机会。</p>
+                    <h3>一起成长<span class="th">เติบโตไปด้วยกัน</span></h3>
+                    <p>策划 · 协作 · 沟通，每一场活动都是成长的机会。
+                        <span class="th">วางแผน · ทำงานร่วมกัน · สื่อสาร — ทุกกิจกรรมคือโอกาสในการเติบโต</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <span class="slide-number">05 / 13</span>
+    <span class="slide-number">04 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 6 — BENEFITS
+     SLIDE 5 — BENEFITS (6 tiles)
      =========================================== -->
 <section class="slide" data-title="Benefits">
     <div class="card">
         <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">05</span> · VALUE · FOR YOU</span>
-            <h2 class="reveal delay-2">作为部门成员<br>你会得到什么？</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">04</span> · VALUE · FOR YOU</span>
+            </span>
+            <h2 class="reveal delay-2">作为 RC 成员<br>你会<em>收获</em>什么？
+                <span class="th">ในฐานะสมาชิก RC คุณจะได้อะไร?</span>
+            </h2>
             <div class="grid-3" style="flex: 1;">
                 <div class="tile t-pink reveal delay-3">
-                    <div class="icon">🫂</div>
-                    <h3>更多真实的朋友</h3>
-                    <p>工位之外，也有一群能 call 的人。</p>
-                </div>
-                <div class="tile t-yellow reveal delay-4">
-                    <div class="icon">🧘</div>
-                    <h3>更松弛的状态</h3>
-                    <p>忙碌的 sprint 之间，总有一点小期待。</p>
-                </div>
-                <div class="tile t-blue reveal delay-5">
-                    <div class="icon">🎯</div>
-                    <h3>解锁隐藏技能</h3>
-                    <p>你擅长摄影？飞盘？DJ？总有舞台等你。</p>
-                </div>
-                <div class="tile t-mint reveal delay-3">
-                    <div class="icon">🎙️</div>
-                    <h3>被听见</h3>
-                    <p>活动想法、想见的同事，不用再藏在心里。</p>
+                    <div class="icon">🎬</div>
+                    <h3>做回忆的「造梦者」<span class="th">เป็น "ผู้สร้าง" ความทรงจำ</span></h3>
+                    <p>你亲手策划的那场活动，可能就是大家年底聊起最多的高光瞬间。
+                        <span class="th">กิจกรรมที่คุณลงมือจัดเอง อาจกลายเป็นไฮไลท์ที่ทุกคนพูดถึงมากที่สุดตอนปลายปี</span>
+                    </p>
                 </div>
                 <div class="tile t-lavender reveal delay-4">
                     <div class="icon">📸</div>
-                    <h3>一整年的回忆</h3>
-                    <p>照片、视频、故事——这份部门的「年鉴」。</p>
+                    <h3>在部门故事里留名<span class="th">จารึกชื่อในเรื่องราวของทีม</span></h3>
+                    <p>照片、视频、群聊梗——几年后再翻起，还有你的名字。
+                        <span class="th">ภาพ · วิดีโอ · มุกในกรุ๊ปแชท — อีกหลายปีต่อมา ก็ยังมีชื่อของคุณอยู่ในนั้น</span>
+                    </p>
                 </div>
                 <div class="tile t-coral reveal delay-5">
-                    <div class="icon">⚡</div>
-                    <h3>轻盈的归属感</h3>
-                    <p>「这是我们的部门」不只是 slogan。</p>
+                    <div class="icon">🫂</div>
+                    <h3>把陌生变熟悉<span class="th">เปลี่ยนคนไม่คุ้นเคย ให้กลายเป็นเพื่อน</span></h3>
+                    <p>你亲手织起的这张关系网，会在部门里一直发酵。
+                        <span class="th">เครือข่ายความสัมพันธ์ที่คุณสานขึ้นเอง จะเติบโตต่อไปในทีม</span>
+                    </p>
+                </div>
+                <div class="tile t-blue reveal delay-3">
+                    <div class="icon">🎯</div>
+                    <h3>一次完整的策划闭环<span class="th">ลูปของการวางแผนแบบครบวงจร</span></h3>
+                    <p>从 idea → 预算 → 执行 → 复盘，一次真正的"迷你项目"。
+                        <span class="th">จาก idea → งบประมาณ → ลงมือ → สรุปผล — "mini-project" ที่สมบูรณ์หนึ่งรอบ</span>
+                    </p>
+                </div>
+                <div class="tile t-mint reveal delay-4">
+                    <div class="icon">🤝</div>
+                    <h3>跨部门的视野<span class="th">มุมมองข้ามทีม</span></h3>
+                    <p>和不同部门的代表并肩协作，看见公司是如何运转的。
+                        <span class="th">ทำงานเคียงบ่าเคียงไหล่กับตัวแทนจากทีมต่างๆ ได้เห็นว่าบริษัทขับเคลื่อนอย่างไร</span>
+                    </p>
+                </div>
+                <div class="tile t-yellow reveal delay-5">
+                    <div class="icon">🌟</div>
+                    <h3>在本职之外被看见<span class="th">ถูกมองเห็น นอกเหนือจากงานประจำ</span></h3>
+                    <p>让更多同事知道——你不只是工位上那个埋头做事的你。
+                        <span class="th">ให้เพื่อนร่วมงานได้รู้จักว่า คุณไม่ได้เป็นแค่คนที่ก้มหน้าทำงานอยู่ที่โต๊ะ</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <span class="slide-number">06 / 13</span>
+    <span class="slide-number">05 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 7 — HOW IT WORKS
+     SLIDE 6 — STRUCTURE
      =========================================== -->
 <section class="slide" data-title="Structure">
     <div class="card">
         <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">06</span> · STRUCTURE</span>
-            <h2 class="reveal delay-2">RC · 长什么样？</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">05</span> · STRUCTURE</span>
+            </span>
+            <h2 class="reveal delay-2">RC · 长什么样？
+                <span class="th">RC หน้าตาเป็นอย่างไร?</span>
+            </h2>
             <div class="grid-2" style="flex: 1; align-items: stretch;">
                 <div class="tile t-blue reveal delay-3" style="justify-content: space-between;">
                     <div>
                         <div class="icon">🧩</div>
-                        <h3>每部门 1–2 位代表</h3>
-                        <p>熟悉本部门节奏，既能把部门的声音带出来，也能把 RC 的计划带回去。</p>
+                        <h3>每部门 1–2 位代表<span class="th">ตัวแทน 1–2 คน ต่อทีม</span></h3>
+                        <p>熟悉本部门节奏，既能把部门的声音带出来，也能把 RC 的计划带回去。
+                            <span class="th">เข้าใจจังหวะของทีมตัวเอง ทั้งนำเสียงของทีมออกมา และนำแผน RC กลับไปสื่อสาร</span>
+                        </p>
                     </div>
                     <div class="chip-row" style="margin-top: 0.8rem;">
-                        <span class="chip mint">产品 · 1–2</span>
-                        <span class="chip lavender">研发 · 1–2</span>
-                        <span class="chip pink">设计 · 1–2</span>
-                        <span class="chip coral">运营 · 1–2</span>
+                        <span class="chip coral">Sales<span class="th">ฝ่ายขาย</span></span>
+                        <span class="chip mint">OPS<span class="th">ปฏิบัติการ</span></span>
+                        <span class="chip lavender">MKT<span class="th">การตลาด</span></span>
+                        <span class="chip pink">QC<span class="th">ควบคุมคุณภาพ</span></span>
+                        <span class="chip coral">Data<span class="th">ข้อมูล</span></span>
+                        <span class="chip mint">CS<span class="th">บริการลูกค้า</span></span>
+                        <span class="chip lavender">Support<span class="th">ฝ่ายสนับสนุน</span></span>
                     </div>
                 </div>
                 <div class="tile t-yellow reveal delay-4" style="justify-content: space-between;">
                     <div>
                         <div class="icon">🔁</div>
-                        <h3>一年一届 · 平等轮值</h3>
-                        <p>每年重新招募，让想参与的人都有机会。任期结束的代表可以回到「普通观众席」。</p>
+                        <h3>一年一届 · 双轨入组<span class="th">วาระ 1 ปี · เข้าร่วม 2 ทาง</span></h3>
+                        <p>每年重新招募。<strong>自愿报名 + 推荐入组</strong>两种方式都欢迎。任期结束可以回到「普通观众席」。
+                            <span class="th">รับสมัครใหม่ทุกปี <strong>สมัครใจ + การแนะนำ</strong> ยินดีทั้งสองทาง หมดวาระแล้วกลับสู่ "ผู้ชม" ได้</span>
+                        </p>
                     </div>
                     <div class="chip-row" style="margin-top: 0.8rem;">
-                        <span class="chip coral">优先自愿</span>
-                        <span class="chip mint">名额超出时部门内票选</span>
+                        <span class="chip coral">自愿报名<span class="th">สมัครใจ</span></span>
+                        <span class="chip mint">Lead 推荐<span class="th">Lead แนะนำ</span></span>
+                        <span class="chip lavender">部门内确认<span class="th">ทีมยืนยัน</span></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <span class="slide-number">07 / 13</span>
+    <span class="slide-number">06 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 8 — ACTIVITIES
+     SLIDE 7 — ACTIVITIES (rewritten concrete)
      =========================================== -->
 <section class="slide" data-title="Activities">
     <div class="card">
         <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">07</span> · 一年里一起做的事</span>
-            <h2 class="reveal delay-2">从小惊喜到大活动。</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">06</span> · 一年里一起做的事</span>
+                <span class="th">กิจกรรมตลอดทั้งปี</span>
+            </span>
+            <h2 class="reveal delay-2">从下班后的球场<br>到 周末的草坪。
+                <span class="th">จากสนามหลังเลิกงาน ถึงสนามหญ้าสุดสัปดาห์</span>
+            </h2>
             <div class="grid-3" style="flex: 1;">
                 <div class="tile t-coral reveal delay-3">
-                    <div class="icon">🎉</div>
-                    <h3>月度小趴</h3>
-                    <p>每月一次轻量聚会：咖啡、桌游、主题夜。</p>
+                    <div class="icon">🏸</div>
+                    <h3>下班后的羽毛球<span class="th">แบดมินตันหลังเลิกงาน</span></h3>
+                    <p>一场酣畅淋漓的对打，把一天的疲惫都打出去。
+                        <span class="th">ตีกันสุดฝีเท้า ปลดปล่อยความเหนื่อยของวันให้หายไปหมด</span>
+                    </p>
                 </div>
                 <div class="tile t-mint reveal delay-4">
-                    <div class="icon">🏕️</div>
-                    <h3>季度团建</h3>
-                    <p>郊游、露营、运动日——换个场景链接。</p>
+                    <div class="icon">🧺</div>
+                    <h3>湖边草坪野餐<span class="th">ปิกนิกริมทะเลสาบ</span></h3>
+                    <p>周末带上三明治和音乐，到公园湖边坐一下午。
+                        <span class="th">สุดสัปดาห์พาแซนด์วิชและเพลงไปนั่งริมทะเลสาบในสวนทั้งบ่าย</span>
+                    </p>
                 </div>
                 <div class="tile t-pink reveal delay-5">
-                    <div class="icon">🎂</div>
-                    <h3>生日月仪式</h3>
-                    <p>每月为当月生日的伙伴办一场合生日。</p>
+                    <div class="icon">🎲</div>
+                    <h3>桌游之夜<span class="th">คืนแห่งบอร์ดเกม</span></h3>
+                    <p>狼人、卡坦岛、UNO、阿瓦隆——谁在演戏，一眼看穿。
+                        <span class="th">Werewolf, Catan, UNO, Avalon — ใครโกหก เรารู้ทัน</span>
+                    </p>
                 </div>
                 <div class="tile t-blue reveal delay-3">
-                    <div class="icon">🎤</div>
-                    <h3>兴趣分享会</h3>
-                    <p>摄影、健身、烘焙、养猫……谁都可以做主讲。</p>
+                    <div class="icon">🍱</div>
+                    <h3>拿手菜日<span class="th">วันแบ่งปันเมนูเด็ด</span></h3>
+                    <p>带一份最拿手的家常菜来公司，一起午餐、互相投喂。
+                        <span class="th">นำเมนูเด็ดประจำบ้านมาแบ่งกันที่ออฟฟิศ มื้อเที่ยงที่อบอุ่นกว่าเดิม</span>
+                    </p>
                 </div>
                 <div class="tile t-lavender reveal delay-4">
-                    <div class="icon">🏆</div>
-                    <h3>主题竞赛</h3>
-                    <p>年度飞盘杯、摄影大赛、年终颁奖礼。</p>
+                    <div class="icon">🎂</div>
+                    <h3>生日月仪式<span class="th">เดือนแห่งวันเกิด</span></h3>
+                    <p>每月一次，为当月生日的伙伴办一场合生日。
+                        <span class="th">เดือนละครั้ง ฉลองวันเกิดรวมของเพื่อนที่เกิดในเดือนนั้น</span>
+                    </p>
                 </div>
                 <div class="tile t-yellow reveal delay-5">
-                    <div class="icon">✨</div>
-                    <h3>年终盛典</h3>
-                    <p>一年一度的高光时刻：年会 · 回顾 · 未来。</p>
+                    <div class="icon">🎪</div>
+                    <h3>Workshop & 年度团建<span class="th">Workshop และ Outing ประจำปี</span></h3>
+                    <p>和部门一起筹备大型活动，把氛围和细节都做到位。
+                        <span class="th">ร่วมกับทีม จัดกิจกรรมใหญ่ ใส่ใจทุกบรรยากาศและรายละเอียด</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-    <span class="slide-number">08 / 13</span>
+    <span class="slide-number">07 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 9 — ROADMAP
+     SLIDE 8 — HOW TO JOIN (updated for dual-track)
      =========================================== -->
-<section class="slide" data-title="Roadmap">
+<section class="slide" data-title="How to join" id="slide-join">
     <div class="card">
         <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">08</span> · 首期路线图 · 2026</span>
-            <h2 class="reveal delay-2">首届 RC · 从这里开始。</h2>
-            <div class="timeline" style="flex: 1;">
-                <div class="tl-node reveal delay-3">
-                    <div class="dot"></div>
-                    <span class="q">Q1</span>
-                    <h3>招募 · 组建</h3>
-                    <p>各部门推选代表，首次 Kick-off 会议。</p>
-                </div>
-                <div class="tl-node reveal delay-4">
-                    <div class="dot"></div>
-                    <span class="q">Q2</span>
-                    <h3>破冰季</h3>
-                    <p>首场月度趴、第一次季度小团建。</p>
-                </div>
-                <div class="tl-node reveal delay-5">
-                    <div class="dot"></div>
-                    <span class="q">Q3</span>
-                    <h3>主题月</h3>
-                    <p>运动主题月、夏日野餐、兴趣分享会。</p>
-                </div>
-                <div class="tl-node reveal delay-6">
-                    <div class="dot"></div>
-                    <span class="q">Q4</span>
-                    <h3>高光收官</h3>
-                    <p>年终盛典 · 回顾展 · 下一届换届。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <span class="slide-number">09 / 13</span>
-</section>
-
-<!-- ===========================================
-     SLIDE 10 — HOW TO JOIN
-     =========================================== -->
-<section class="slide" data-title="How to join">
-    <div class="card" id="slide-13">
-        <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">09</span> · HOW TO JOIN</span>
-            <h2 class="reveal delay-2">三步加入首届 RC。</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">07</span> · HOW TO JOIN</span>
+            </span>
+            <h2 class="reveal delay-2">三步进入首届 RC。
+                <span class="th">3 ขั้นสู่ RC รุ่นแรก</span>
+            </h2>
             <div class="grid-3" style="flex: 1;">
                 <div class="step reveal delay-3">
                     <div class="big-num">01</div>
-                    <h3>自愿报名</h3>
-                    <p>在所在部门的报名表里填上名字——理由随便写，一句话也行。</p>
-                    <span class="chip coral" style="margin-top: auto;">截止：提案通过后 2 周内</span>
+                    <h3>报名 或 接受推荐<span class="th">สมัคร หรือ รับการแนะนำ</span></h3>
+                    <p>你可以在报名表里填上名字；也可以由部门 lead 或同事推荐加入——<strong>两条路都欢迎。</strong>
+                        <span class="th">คุณสามารถใส่ชื่อในแบบฟอร์ม หรือได้รับการแนะนำจาก lead หรือเพื่อนร่วมทีม <strong>ยินดีทั้งสองทาง</strong></span>
+                    </p>
+                    <span class="chip coral" style="margin-top: auto;">2 周内截止<span class="th">ปิดรับใน 2 สัปดาห์</span></span>
                 </div>
                 <div class="step reveal delay-4">
                     <div class="big-num">02</div>
-                    <h3>部门内协商</h3>
-                    <p>报名超过 2 人时，部门内自由协商或抽签，选出 1–2 位代表。</p>
-                    <span class="chip mint" style="margin-top: auto;">友好 · 不内卷</span>
+                    <h3>部门内确认<span class="th">ทีมยืนยัน</span></h3>
+                    <p>每个部门最终确认 1–2 位代表。超员则协商或抽签，缺员则由 lead 推荐补位。
+                        <span class="th">แต่ละทีมยืนยัน 1–2 คน หากเกินก็ตกลงกันหรือจับฉลาก หากไม่ครบ lead แนะนำเพิ่ม</span>
+                    </p>
+                    <span class="chip mint" style="margin-top: auto;">友好确认<span class="th">ยืนยันอย่างเป็นมิตร</span></span>
                 </div>
                 <div class="step reveal delay-5">
                     <div class="big-num">03</div>
-                    <h3>首次会议</h3>
-                    <p>全员代表 Kick-off，选出轮值主席、排定首月活动。</p>
-                    <span class="chip lavender" style="margin-top: auto;">一起畅所欲言</span>
+                    <h3>首次 Kick-off<span class="th">ประชุม Kick-off ครั้งแรก</span></h3>
+                    <p>全员代表碰面，选出轮值主席、排定首月活动。
+                        <span class="th">ตัวแทนทั้งหมดมาเจอกัน เลือกประธานหมุนเวียน วางแผนกิจกรรมเดือนแรก</span>
+                    </p>
+                    <span class="chip lavender" style="margin-top: auto;">畅所欲言<span class="th">คุยกันอย่างเปิดใจ</span></span>
                 </div>
             </div>
         </div>
     </div>
-    <span class="slide-number">10 / 13</span>
+    <span class="slide-number">08 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 11 — FAQ
+     SLIDE 9 — FAQ (3 items)
      =========================================== -->
 <section class="slide" data-title="FAQ">
     <div class="card no-circle">
         <div class="content gap-md" style="grid-column: 1 / -1;">
-            <span class="eyebrow reveal delay-1"><span class="num">10</span> · 你可能想问</span>
-            <h2 class="reveal delay-2">几个常见的小顾虑。</h2>
+            <span class="eyebrow reveal delay-1">
+                <span class="main"><span class="num">08</span> · 你可能想问</span>
+                <span class="th">คำถามที่คุณอาจสงสัย</span>
+            </span>
+            <h2 class="reveal delay-2">几个常见的小顾虑。
+                <span class="th">ความกังวลทั่วไปไม่กี่ข้อ</span>
+            </h2>
             <div class="faq-list" style="flex: 1;">
                 <div class="faq-item reveal delay-3">
-                    <div class="q">会占用太多工作时间吗？</div>
-                    <div class="a">不会。RC 每月只开一次 30 分钟的线上小会，活动大多安排在非核心工作时段。你永远可以说「这个月有点忙，下次见」。</div>
+                    <div class="q">会占用太多工作时间吗？
+                        <span class="th">จะกินเวลาทำงานมากเกินไปไหม?</span>
+                    </div>
+                    <div class="a">不会。RC 每月只开一次 30 分钟的线上小会，活动大多安排在非核心工作时段。你永远可以说「这个月有点忙，下次见」。
+                        <span class="th">ไม่เลย RC ประชุมออนไลน์เพียง 30 นาที/เดือน กิจกรรมส่วนใหญ่อยู่นอกเวลาทำงานหลัก คุณพูดได้เสมอว่า "เดือนนี้ยุ่ง ไว้เจอกันครั้งหน้า"</span>
+                    </div>
                 </div>
                 <div class="faq-item reveal delay-4">
-                    <div class="q">我不擅长组织活动，也能加入吗？</div>
-                    <div class="a">当然。RC 里需要组织者，也需要出主意的人、帮忙记录的人、会拍照的人、爱讲段子暖场的人。你擅长什么，就带什么进来。</div>
+                    <div class="q">我不擅长组织活动，也能加入吗？
+                        <span class="th">ฉันไม่ถนัดจัดกิจกรรม เข้าร่วมได้ไหม?</span>
+                    </div>
+                    <div class="a">当然。RC 里需要组织者，也需要出主意的人、帮忙记录的人、会拍照的人、爱讲段子暖场的人。你擅长什么，就带什么进来。
+                        <span class="th">แน่นอน RC ต้องการทั้งผู้จัด คนคิดไอเดีย คนจดบันทึก ช่างภาพ และคนเล่าเรื่องสนุกๆ — คุณถนัดอะไร ก็นำสิ่งนั้นเข้ามา</span>
+                    </div>
                 </div>
                 <div class="faq-item reveal delay-5">
-                    <div class="q">预算从哪里来？</div>
-                    <div class="a">每次活动会根据规模申请部门公共预算，透明公示。小活动也可以 AA ——RC 的重点从来不是花钱多少，而是参与感。</div>
-                </div>
-                <div class="faq-item reveal delay-6">
-                    <div class="q">如果没人感兴趣怎么办？</div>
-                    <div class="a">那说明现在时机没到，我们会诚实地收摊。但我们相信：只要有 1 个活动让 1 个同事笑出声——这件事就已经值得。</div>
+                    <div class="q">预算从哪里来？
+                        <span class="th">งบประมาณมาจากไหน?</span>
+                    </div>
+                    <div class="a">每次活动会根据规模申请部门公共预算，透明公示。小活动也可以 AA——RC 的重点从来不是花钱多少，而是参与感。
+                        <span class="th">แต่ละกิจกรรมขอจากงบกลางของทีมตามขนาด เปิดเผยทุกรายการ กิจกรรมเล็กๆ อาจ AA กัน — RC ไม่ได้วัดที่งบ แต่วัดที่การมีส่วนร่วม</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <span class="slide-number">11 / 13</span>
+    <span class="slide-number">09 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 12 — MANIFESTO / BIG QUOTE (no card)
+     SLIDE 10 — MANIFESTO
      =========================================== -->
 <section class="slide bare" data-title="Manifesto">
     <div class="bare-content">
-        <span class="eyebrow reveal delay-1" style="align-self: center;">OUR PROMISE</span>
+        <span class="eyebrow reveal delay-1" style="align-self: center;">
+            <span class="main">OUR PROMISE</span>
+        </span>
         <div class="quote-mark reveal delay-2">“</div>
         <p class="big-quote reveal delay-3" style="margin: 0 auto;">
             让<span class="accent-word">工作</span>里<br>
             有<span class="violet-word">生活</span>的温度，<br>
             让<span class="violet-word">同事</span>之间<br>
             有<span class="accent-word">朋友</span>的链接。
+            <span class="th">ให้ <span class="accent-word">งาน</span> มีความอบอุ่นของ <span class="violet-word">ชีวิต</span><br>
+            ให้ <span class="violet-word">เพื่อนร่วมงาน</span> มีความสัมพันธ์แบบ <span class="accent-word">เพื่อน</span></span>
         </p>
-        <p class="lead reveal delay-4" style="max-width: 40ch; margin: 0.6rem auto 0; text-align: center;">
+        <p class="lead reveal delay-4" style="max-width: 44ch; margin: 0.6rem auto 0; text-align: center;">
             这就是 Recreation Committee 想做的事——<br>
             简单、真诚，<strong>一年一年，好好做下去。</strong>
+            <span class="th">นี่คือสิ่งที่ Recreation Committee อยากทำ — เรียบง่าย จริงใจ <strong>และต่อเนื่องปีต่อปี</strong></span>
         </p>
-        <span class="float reveal delay-5" style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-top: 0.5rem;">🎈</span>
+        <span class="float reveal delay-5" style="font-size: clamp(1.5rem, 3vw, 2.2rem); margin-top: 0.3rem;">🎈</span>
     </div>
-    <span class="slide-number" style="color: var(--ink-soft);">12 / 13</span>
+    <span class="slide-number" style="color: var(--ink-soft);">10 / 11</span>
 </section>
 
 <!-- ===========================================
-     SLIDE 13 — CALL TO ACTION / CLOSE
+     SLIDE 11 — CTA
      =========================================== -->
 <section class="slide" data-title="Join us">
     <div class="card closing-card">
         <div class="content center">
-            <span class="eyebrow reveal delay-1">⟶ NOW · IT'S YOUR TURN</span>
-            <h1 class="reveal delay-2">一起<br>把它<span class="pop">启动</span>。</h1>
+            <span class="eyebrow reveal delay-1">
+                <span class="main">⟶ NOW · IT'S YOUR TURN</span>
+            </span>
+            <h1 class="reveal delay-2">一起<br>把它<span class="pop">启动</span>。
+                <span class="th">มาเริ่มกันเถอะ</span>
+            </h1>
             <p class="lead reveal delay-3">
                 如果你读到这里还在点头——<br>
                 <strong>那就来当首届 RC 的一员吧。</strong>
+                <span class="th">ถ้าอ่านมาถึงตรงนี้แล้วยังพยักหน้าอยู่ — <strong>มาเป็นหนึ่งใน RC รุ่นแรกกันเถอะ</strong></span>
             </p>
             <div class="chip-row reveal delay-4" style="margin-top: 0.4rem;">
-                <span class="chip coral">📮 回复此提案报名</span>
-                <span class="chip mint">💬 或找各部门接口人</span>
-                <span class="chip lavender">📅 2 周内截止</span>
+                <span class="chip coral">📮 回复此提案报名<span class="th">ตอบกลับข้อเสนอเพื่อสมัคร</span></span>
+                <span class="chip mint">💬 或请 lead 推荐你<span class="th">หรือขอให้ lead แนะนำ</span></span>
+                <span class="chip lavender">📅 2 周内截止<span class="th">ปิดรับใน 2 สัปดาห์</span></span>
             </div>
             <p class="reveal delay-5" style="margin-top: clamp(0.8rem, 1.5vw, 1.2rem); font-size: var(--small-size); color: var(--ink-mute); letter-spacing: 0.06em;">
                 Recreation Committee · 首届筹备组 · 2026
+                <span class="th" style="margin-top: 0.1em;">คณะผู้ริเริ่มรุ่นแรก</span>
             </p>
         </div>
         <div class="pills-decor">
@@ -1181,15 +1266,12 @@ body.edit-active [contenteditable="true"]:focus {
             <div class="pill p4 grow"></div>
         </div>
     </div>
-    <span class="slide-number">13 / 13</span>
+    <span class="slide-number">11 / 11</span>
 </section>
 
 <script>
 /* ===========================================
    SLIDE PRESENTATION CONTROLLER
-   - Intersection observer for .visible transitions
-   - Keyboard / touch / wheel nav
-   - Progress bar + nav dots
    =========================================== */
 class SlidePresentation {
     constructor() {
@@ -1202,12 +1284,10 @@ class SlidePresentation {
         this.setupNavDots();
         this.setupKeyboardNav();
         this.setupTouchNav();
-        this.setupWheelNav();
         this.setupProgressBar();
     }
 
     setupIntersectionObserver() {
-        /* Adds .visible to the slide in view, triggers CSS transitions */
         const obs = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -1222,7 +1302,7 @@ class SlidePresentation {
     }
 
     setupNavDots() {
-        /* Clear first — prevents duplicates if outerHTML is re-rendered (edit mode export) */
+        /* Clear first to avoid duplication if outerHTML was captured with dots */
         this.navDotsContainer.innerHTML = '';
         this.slides.forEach((slide, i) => {
             const dot = document.createElement('button');
@@ -1253,7 +1333,6 @@ class SlidePresentation {
 
     setupKeyboardNav() {
         document.addEventListener('keydown', (e) => {
-            /* Skip nav keys when editing */
             if (e.target.getAttribute('contenteditable') === 'true') return;
             const k = e.key;
             if (k === 'ArrowRight' || k === 'ArrowDown' || k === ' ' || k === 'PageDown') {
@@ -1273,29 +1352,21 @@ class SlidePresentation {
         document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
         document.addEventListener('touchend', (e) => {
             const dy = startY - e.changedTouches[0].clientY;
-            if (Math.abs(dy) > 50) (dy > 0 ? this.next() : this.prev()).bind?.(this);
             if (Math.abs(dy) > 50) { if (dy > 0) this.next(); else this.prev(); }
         }, { passive: true });
-    }
-
-    setupWheelNav() {
-        /* Native scroll-snap handles wheel well; no extra logic needed */
     }
 }
 
 /* ===========================================
-   INLINE TEXT EDITOR
-   - Toggles contenteditable on text elements
-   - Auto-save to localStorage (keyed by slide index + selector)
-   - Ctrl+S exports clean HTML file
+   INLINE EDITOR
    =========================================== */
 class InlineEditor {
     constructor() {
         this.isActive = false;
         this.toggleBtn = document.getElementById('editToggle');
         this.banner = document.getElementById('editBanner');
-        this.editableSelector = 'h1, h2, h3, h4, p, li, .lead, .eyebrow, .chip, .tile h3, .tile p, .faq-item .q, .faq-item .a, .tl-node h3, .tl-node p, .step h3, .step p, .big-quote, .stat .num, .stat .label';
-        this.STORAGE_KEY = 'rc-proposal-edits';
+        this.editableSelector = 'h1, h2, h3, h4, p, li, .lead, .chip, .tile h3, .tile p, .faq-item .q, .faq-item .a, .step h3, .step p, .big-quote, .stat .num, .stat .label, .cta .cta-text, .eyebrow .main, .eyebrow > .th';
+        this.STORAGE_KEY = 'rc-proposal-edits-v2';
 
         this.restoreEdits();
         this.setupToggleUI();
@@ -1307,7 +1378,6 @@ class InlineEditor {
         const hotzone = document.querySelector('.edit-hotzone');
         let hideTimeout = null;
 
-        /* Hover hotzone reveals the pencil button (400ms grace) */
         hotzone.addEventListener('mouseenter', () => {
             clearTimeout(hideTimeout);
             this.toggleBtn.classList.add('show');
@@ -1324,7 +1394,6 @@ class InlineEditor {
             }, 400);
         });
 
-        /* Click handlers */
         this.toggleBtn.addEventListener('click', () => this.toggle());
         hotzone.addEventListener('click', () => this.toggle());
     }
@@ -1352,7 +1421,6 @@ class InlineEditor {
     }
 
     getKey(el) {
-        /* Stable key = slide index + tag + index among siblings of same tag */
         const slide = el.closest('.slide');
         if (!slide) return null;
         const slideIdx = Array.from(document.querySelectorAll('.slide')).indexOf(slide);
@@ -1383,14 +1451,12 @@ class InlineEditor {
 
     setupKeyShortcuts() {
         document.addEventListener('keydown', (e) => {
-            /* E toggles (unless currently typing) */
             if ((e.key === 'e' || e.key === 'E') &&
                 !e.target.getAttribute('contenteditable') &&
                 !e.metaKey && !e.ctrlKey) {
                 e.preventDefault();
                 this.toggle();
             }
-            /* Ctrl/Cmd+S exports file */
             if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
                 e.preventDefault();
                 this.exportFile();
@@ -1399,8 +1465,7 @@ class InlineEditor {
     }
 
     exportFile() {
-        /* Strip edit state BEFORE capturing outerHTML, else saved file opens
-           permanently in edit mode with dashed outlines on every element */
+        /* Strip edit state BEFORE capturing outerHTML — else saved file opens in edit mode */
         const editableEls = Array.from(document.querySelectorAll('[contenteditable]'));
         editableEls.forEach(el => el.removeAttribute('contenteditable'));
         document.body.classList.remove('edit-active');
@@ -1411,7 +1476,7 @@ class InlineEditor {
 
         const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 
-        /* Restore edit state so the user can keep editing */
+        /* Restore edit state so user can keep editing */
         if (this.isActive) {
             document.body.classList.add('edit-active');
             editableEls.forEach(el => el.setAttribute('contenteditable', 'true'));
@@ -1430,7 +1495,7 @@ class InlineEditor {
 }
 
 /* ===========================================
-   BOOT — script is at end of body, DOM is already parsed
+   BOOT
    =========================================== */
 const __bootSlides = () => { new SlidePresentation(); new InlineEditor(); };
 if (document.readyState === 'loading') {
